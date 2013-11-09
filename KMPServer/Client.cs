@@ -32,7 +32,7 @@ namespace KMPServer
 		}
 		public int clientIndex;
 		public String username;
-		public String guid;
+		public Guid guid;
 		public int playerID;
 		public Guid currentVessel = Guid.Empty;
 		public int currentSubspaceID = -1;
@@ -106,11 +106,9 @@ namespace KMPServer
 							if ((parent.currentMillisecond - lastPollTime) > POLL_INTERVAL)
 							{
 							    lastPollTime = parent.currentMillisecond;
-								
-								//KMP ISSUE #192: Fixed random disconnect issue
 								//Removed redundant "Socket.Available" check and increased the Poll "Timeout" from 10ms to 500ms - Dani
-                                //Change SocketRead to SocketWrite. Also, no need for such high timeout.
-                                return clientSocket.Poll(150000, SelectMode.SelectWrite);
+								//Change SocketRead to SocketWrite. Also, no need for such high timeout.
+								return clientSocket.Poll(200000, SelectMode.SelectWrite);
 							}
 							else
 							{
@@ -145,6 +143,15 @@ namespace KMPServer
             get
             {
                 return (isValid && this.receivedHandshake);
+            }
+        }
+
+        public IPAddress IPAddress
+        {
+            get
+            {
+                if (tcpClient == null) { return null; }
+                return (tcpClient.Client.RemoteEndPoint as IPEndPoint).Address;
             }
         }
 

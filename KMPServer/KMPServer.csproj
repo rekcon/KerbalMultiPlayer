@@ -43,8 +43,15 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\mysql.data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBExtensions.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Server.cs" />
